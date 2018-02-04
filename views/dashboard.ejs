@@ -65,6 +65,64 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-lg-8 col-md-7">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Add a new Event</h4>
+                            </div>
+                            <div class="content">
+                                <form method="post" action="/">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Event Title</label>
+                                                <input type="text" class="form-control border-input"
+                                                       placeholder="a short precise title here" name="eventTitle"
+                                                       required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Event Description</label>
+                                                <input type="text" class="form-control border-input"
+                                                       placeholder="a brief description about the event"
+                                                       name="eventDescription">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Start Time</label>
+                                                <input type="datetime-local" class="form-control border-input"
+                                                       placeholder=""
+                                                       name="eventStartTime" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>End Time</label>
+                                                <input type="datetime-local" class="form-control border-input"
+                                                       placeholder=""
+                                                       name="eventEndTime" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-info btn-fill btn-wd">Add Event
+                                        </button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -75,6 +133,21 @@
 </body>
 
 <% include tail.ejs %>
+
+<% if (notification !== null && notification !== undefined) { %>
+<script>
+    $.notify({
+        message: '<%= notification.message %>'
+    }, {
+        type: '<%= notification.type %>',
+        timer: 4000,
+        placement: {
+            from: 'top',
+            align: 'right'
+        }
+    });
+</script>
+<% } %>
 
 </html>
 
