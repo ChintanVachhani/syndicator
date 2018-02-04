@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<% include head.ejs %>
+
+<body>
+<div class="wrapper">
+
+    <% include sidebar.ejs %>
+
+    <div class="main-panel">
+        <% include navbar.ejs %>
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-11"><h1><%= message %></h1>
+                        <h2><%= error.status %></h2>
+                        <pre><%= error.stack %></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <% include footer.ejs %>
+
+    </div>
+</div>
+</body>
+
+<% include tail.ejs %>
+
+</html>

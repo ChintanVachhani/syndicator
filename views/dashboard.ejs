@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<% include head.ejs %>
+
+<body>
+<div class="wrapper">
+
+    <% include sidebar.ejs %>
+
+    <div class="main-panel">
+        <% include navbar.ejs %>
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big icon-warning text-center">
+                                            <i class="ti-flag-alt"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers">
+                                            <p>Events</p>
+                                            <%= eventsCount %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr/>
+                                    <div class="stats">
+                                        <i class="ti-reload"></i> Updated now
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <div class="icon-big icon-success text-center">
+                                            <i class="ti-timer"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <div class="numbers">
+                                            <p>Interval</p>
+                                            5
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <hr/>
+                                    <div class="stats">
+                                        <i class="ti-timer"></i> Minutes
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <% include footer.ejs %>
+
+    </div>
+</div>
+</body>
+
+<% include tail.ejs %>
+
+</html>
+
