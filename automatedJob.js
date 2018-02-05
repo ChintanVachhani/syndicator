@@ -9,8 +9,6 @@ var lastIntervalTime;
 
 var axios = require('axios');
 
-var tokens = require('tokens');
-
 cron.schedule('*/' + interval + ' * * * *', function () {
     var currentIntervalTime;
     if (firstTime) {
@@ -61,39 +59,30 @@ function repostToPicatic(data) {
     var payload = {
         "data": {
             "attributes": {"title": data.title},
-            "description": data.description,
+            "summary": data.description,
             "start_date": new Date(data.startTime).toLocaleDateString(),
             "start_time": new Date(data.startTime).toLocaleTimeString(),
             "end_date": new Date(data.endTime).toLocaleDateString(),
             "end_time": new Date(data.endTime).toLocaleTimeString(),
-            "type": "event"
+            "type": "free"
         }
     };
 
     axios({
         method: 'post',
         url: 'https://api.picatic.com/v2/event',
-        headers: {Authorization: "Bearer " + tokens.picatic},
+        headers: {Authorization: "Bearer " + process.env.PICATIC_API_KEY},
         data: payload,
     })
         .then((result) => {
             if (result.response && result.response.status !== 201) {
-                console.error({
-                    type: SIGNUP_FAILURE,
-                    response: result.response.data.title + ' ' + result.response.data.error.message,
-                });
+                console.error('REPOST_FAILURE');
             } else {
-                console.log({
-                    type: SIGNUP_SUCCESS,
-                    response: result.data.userId,
-                });
+                console.log('REPOST_SUCCESS');
             }
         }).catch((result) => {
         if (result.response) {
-            console.error({
-                type: SIGNUP_FAILURE,
-                response: result.response.data.title + ' ' + result.response.data.error.message,
-            });
+            console.error('REPOST_FAILURE');
         }
     });
 }

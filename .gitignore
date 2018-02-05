@@ -3,4 +3,5 @@ npm-debug.log
 .idea/
 dump.rdb
 /node_modules
+.env
 

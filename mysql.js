@@ -1,8 +1,7 @@
 var Sequelize = require('sequelize');
-var serverConfig = require('./config');
 
 // Database Setup
-var sequelize = new Sequelize(serverConfig.database.name, serverConfig.database.username, serverConfig.database.password, {
+var sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
   host: 'localhost',
   dialect: 'mysql',
 
