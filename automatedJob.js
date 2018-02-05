@@ -1,5 +1,5 @@
 var cron = require('node-cron');
-const interval = 1; // in minutes
+const interval = 30; // in minutes
 var Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 var Event = require('./models/event');
