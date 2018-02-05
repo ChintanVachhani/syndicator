@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var dashboard = require('./routes/dashboard');
 var events = require('./routes/events');
 
+var automatedJob = require('./automatedJob');
+
 var app = express();
 
 // view engine setup

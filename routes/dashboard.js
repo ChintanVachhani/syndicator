@@ -35,7 +35,7 @@ router.post('/', function (req, res, next) {
         endTime: req.body.eventEndTime
     };
 
-    if (Date.parse(event.startTime) > Date.parse(event.endTime)) {
+    if (Date.parse(event.startTime) >= Date.parse(event.endTime)) {
         notification = {message: 'Invalid dates.', type: 'danger'};
     } else {
         Event.create(event)
