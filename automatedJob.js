@@ -9,6 +9,8 @@ var lastIntervalTime;
 
 var axios = require('axios');
 
+var tokens = require('tokens');
+
 cron.schedule('*/' + interval + ' * * * *', function () {
     var currentIntervalTime;
     if (firstTime) {
@@ -46,54 +48,52 @@ cron.schedule('*/' + interval + ' * * * *', function () {
 });
 
 function syndicate(count, data) {
-    repostToPicatic(count, data);
-}
-
-function repostToEventbrite(count, data) {
-
-}
-
-function repostToPicatic(count, data) {
-
     for (var i = 0; i < count; ++i) {
-        console.log('in loop');
-        var payload = {
-            "data": {
-                "attributes": {"title": data[i].title},
-                "description": data[i].description,
-                "start_date": new Date(data[i].startTime).toDateString(),
-                "start_time": new Date(data[i].startTime).toLocaleTimeString(),
-                "end_date": new Date(data[i].endTime).toDateString(),
-                "end_time": new Date(data[i].endTime).toLocaleTimeString(),
-                "type": "event"
-            }
-        };
+        repostToPicatic(data[i]);
+    }
+}
 
-        axios({
-            method: 'post',
-            url: 'https://api.picatic.com/v2/event',
-            headers: {Authorization: "Bearer sk_live_5e31f0694e3511d11a78be831c043275"},
-            data: payload,
-        })
-            .then((result) => {
-                if (result.response && result.response.status !== 201) {
-                    console.error({
-                        type: SIGNUP_FAILURE,
-                        response: result.response.data.title + ' ' + result.response.data.error.message,
-                    });
-                } else {
-                    console.log({
-                        type: SIGNUP_SUCCESS,
-                        response: result.data.userId,
-                    });
-                }
-            }).catch((result) => {
-            if (result.response) {
+function repostToEventbrite(data) {
+
+}
+
+function repostToPicatic(data) {
+    var payload = {
+        "data": {
+            "attributes": {"title": data.title},
+            "description": data.description,
+            "start_date": new Date(data.startTime).toLocaleDateString(),
+            "start_time": new Date(data.startTime).toLocaleTimeString(),
+            "end_date": new Date(data.endTime).toLocaleDateString(),
+            "end_time": new Date(data.endTime).toLocaleTimeString(),
+            "type": "event"
+        }
+    };
+
+    axios({
+        method: 'post',
+        url: 'https://api.picatic.com/v2/event',
+        headers: {Authorization: "Bearer " + tokens.picatic},
+        data: payload,
+    })
+        .then((result) => {
+            if (result.response && result.response.status !== 201) {
                 console.error({
                     type: SIGNUP_FAILURE,
                     response: result.response.data.title + ' ' + result.response.data.error.message,
                 });
+            } else {
+                console.log({
+                    type: SIGNUP_SUCCESS,
+                    response: result.data.userId,
+                });
             }
-        });
-    }
+        }).catch((result) => {
+        if (result.response) {
+            console.error({
+                type: SIGNUP_FAILURE,
+                response: result.response.data.title + ' ' + result.response.data.error.message,
+            });
+        }
+    });
 }
