@@ -135,7 +135,8 @@
 <% include tail.ejs %>
 
 <% if (notification !== null && notification !== undefined) { %>
-<script>
+<script type="text/javascript">
+    // $(document).ready(function () {
     $.notify({
         message: '<%= notification.message %>'
     }, {
@@ -146,6 +147,8 @@
             align: 'right'
         }
     });
+    <%= notification = null %>
+    // });
 </script>
 <% } %>
 
