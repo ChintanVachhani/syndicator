@@ -13,14 +13,16 @@ router.get('/', function (req, res, next) {
                     title: 'Syndicator',
                     activePage: 'dashboard',
                     eventsCount: events.count,
-                    notification: null
+                    notification: null,
+                    interval: process.env.INTERVAL
                 });
             } else {
                 res.render('dashboard', {
                     title: 'Syndicator',
                     activePage: 'dashboard',
                     eventsCount: 0,
-                    notification: null
+                    notification: null,
+                    interval: process.env.INTERVAL
                 });
             }
         });
@@ -44,14 +46,16 @@ router.post('/', function (req, res, next) {
                         title: 'Syndicator',
                         activePage: 'dashboard',
                         eventsCount: events.count,
-                        notification: notification
+                        notification: notification,
+                        interval: process.env.INTERVAL
                     });
                 } else {
                     res.render('dashboard', {
                         title: 'Syndicator',
                         activePage: 'dashboard',
                         eventsCount: 0,
-                        notification: notification
+                        notification: notification,
+                        interval: process.env.INTERVAL
                     });
                 }
             });
@@ -71,14 +75,16 @@ router.post('/', function (req, res, next) {
                                     title: 'Syndicator',
                                     activePage: 'dashboard',
                                     eventsCount: events.count,
-                                    notification: notification
+                                    notification: notification,
+                                    interval: process.env.INTERVAL
                                 });
                             } else {
                                 res.render('dashboard', {
                                     title: 'Syndicator',
                                     activePage: 'dashboard',
                                     eventsCount: 0,
-                                    notification: notification
+                                    notification: notification,
+                                    interval: process.env.INTERVAL
                                 });
                             }
                         });
@@ -95,14 +101,16 @@ router.post('/', function (req, res, next) {
                                     title: 'Syndicator',
                                     activePage: 'dashboard',
                                     eventsCount: events.count,
-                                    notification: notification
+                                    notification: notification,
+                                    interval: process.env.INTERVAL
                                 });
                             } else {
                                 res.render('dashboard', {
                                     title: 'Syndicator',
                                     activePage: 'dashboard',
                                     eventsCount: 0,
-                                    notification: notification
+                                    notification: notification,
+                                    interval: process.env.INTERVAL
                                 });
                             }
                         });
