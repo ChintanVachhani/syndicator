@@ -60,11 +60,11 @@ function repostToEventbrite(data) {
                 "description": {"html": data.description},
                 "end": {
                     "timezone": "America/Los_Angeles",
-                    "utc": new Date(data.endTime).toISOString().slice(0,19) + 'Z'
+                    "utc": new Date(data.endTime).toISOString().slice(0, 19) + 'Z'
                 },
                 "start": {
                     "timezone": "America/Los_Angeles",
-                    "utc": new Date(data.startTime).toISOString().slice(0,19) + 'Z'
+                    "utc": new Date(data.startTime).toISOString().slice(0, 19) + 'Z'
                 },
                 "currency": "USD"
             }
@@ -88,6 +88,17 @@ function repostToEventbrite(data) {
     });
 }
 
+function convertTo24Hour(time) {
+    var hours = parseInt(time.substr(0, 2));
+    if (time.indexOf('am') != -1 && hours == 12) {
+        time = time.replace('12', '0');
+    }
+    if (time.indexOf('pm') != -1 && hours < 12) {
+        time = time.replace(hours, (hours + 12));
+    }
+    return time.replace(/(am|pm)/, '');
+}
+
 function repostToPicatic(data) {
     var payload = {
         "data": {
@@ -101,6 +112,20 @@ function repostToPicatic(data) {
             }, "type": "event"
         }
     };
+
+    console.error(payload.data.attributes.end_time.split(" ")[1]);
+    console.error(payload.data.attributes.start_time.split(" ")[1]);
+
+    if (payload.data.attributes.end_time.split(" ")[1] !== null && payload.data.attributes.end_time.split(" ")[1] !== undefined) {
+        payload.data.attributes.end_time = convertTo24Hour(payload.data.attributes.end_time.toLowerCase()).trim();
+    }
+
+    if (payload.data.attributes.start_time.split(" ")[1] !== null && payload.data.attributes.start_time.split(" ")[1] !== undefined) {
+        payload.data.attributes.start_time = convertTo24Hour(payload.data.attributes.start_time.toLowerCase()).trim();
+    }
+
+    console.log(payload);
+
     axios({
         method: 'post',
         url: 'https://api.picatic.com/v2/event',
@@ -108,13 +133,13 @@ function repostToPicatic(data) {
         data: payload,
     }).then((result) => {
         if (result.response && result.response.status !== 201) {
-            console.error('REPOST_TO_PICATIC_FAILURE');
+            console.error('REPOST_TO_PICATIC_FAILURE', result.response.data.errors);
         } else {
             console.log('REPOST_TO_PICATIC_SUCCESS');
         }
     }).catch((result) => {
         if (result.response) {
-            console.error('REPOST_TO_PICATIC_FAILURE');
+            console.error('REPOST_TO_PICATIC_FAILURE', result.response.data.errors);
         }
     });
 }
